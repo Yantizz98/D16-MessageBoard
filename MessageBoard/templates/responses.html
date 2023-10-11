@@ -1,0 +1,81 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+Отклики
+{% endblock title %}
+
+{% block content %}
+    <br>
+    <h3>Отклики на мои объявления:</h3><br>
+	<form method="GET">
+		{% csrf_token %}
+        {{ form }}
+		<input type="submit" value="Показать">
+	</form><br>
+    {% if title %}
+        <h3>Oтклики на мое объявление</h3>
+        <a href="/advert/{{ response_advert_id }}"><b>{{ title }}:</b></a><br>
+        {% if filter_responses %}
+            {% for response in filter_responses %}
+                <a><b>Отклик: </b></a>{{ response.text }}<br>
+                <span><b>Автор отклика: {{ response.author.username }} |
+                    дата создания отклика: {{ response.createDate|date:'d.M.Y' }} г.</b></span><br>
+                {% if response.status == False %}
+                    <a href="/response/accept/{{ response.id }}"><b>принять</b></a>
+                    <a>&nbsp;&nbsp;&nbsp;</a>
+                    <a href="/response/delete/{{ response.id }}"><b>удалить</b></a>
+                {% else %}
+                    <a><b>отклик принят</b></a>
+                {% endif %}
+                <br><br>
+            {% endfor %}
+        {% else %}
+            <br>
+            <h5>Откликов нет!</h5>
+        {% endif %}
+    {% else %}
+        <h3>Oтклики на все мои объявления:</h3>
+        {% if filter_responses %}
+            {% for response in filter_responses %}
+                <a><b>Объявление:</b></a>
+                <a href="/advert/{{ response.advert_id }}" ><b>{{ response.advert.title }}</b></a><br>
+                <span><b>Дата публикации объявления: {{ response.advert.createDate|date:'d.M.Y' }} г.</b>
+                </span><br>
+                <a><b>Отклик: </b></a>{{ response.text }}<br>
+                <span><b>Автор отклика: {{ response.author.username }} |
+                    дата публикации отклика: {{ response.createDate|date:'d.M.Y' }} г.</b></span><br>
+                {% if response.status == False %}
+                    <a href="/response/accept/{{ response.id }}"><b>принять</b></a>
+                    <a>&nbsp;&nbsp;&nbsp;</a>
+                    <a href="/response/delete/{{ response.id }}"><b>удалить</b></a>
+                {% else %}
+                    <a><b>отклик принят</b></a>
+                {% endif %}
+                <br><br>
+            {% endfor %}
+        {% else %}
+            <h5>Откликов нет!</h5>
+        {% endif %}
+    {% endif %}
+    <br><br>
+    <h3>Мои отклики на объявления:</h3>
+    {% if myresponses %}
+        {% for response in myresponses %}
+            <a><b>Объявление:</b></a>
+            <a href="/advert/{{ response.advert.id }}"><b>{{ response.advert.title }}</b></a><br>
+            <span><b>Автор объявления:  {{ response.advert.author.username }} |
+                дата публикации объявления: {{ response.advert.createDate|date:'d.M.Y' }} г.</b></span><br>
+            <a><b>Мой отклик:</b></a>
+            {{ response.text }}<br>
+            <span><b>Дата публикации отклика: {{ response.createDate|date:'d.M.Y' }} г.</b></span><br>
+            {% if response.status == True %}
+                <a><b>Автор объявления принял отклик!</b></a>
+            {% else %}
+                <a><b>Автор объявления пока не принял отклик!</b></a>
+            {% endif %}
+        <br><br>
+        {% endfor %}
+    {% else %}
+        <h5>Откликов нет!</h5>
+    {% endif %}
+{% endblock content %}

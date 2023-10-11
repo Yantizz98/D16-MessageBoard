@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title> Доска объявлений MMORPG </title>
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+    </head>
+    <body>
+        <div class="d-flex" id="wrapper">
+            <!-- Sidebar-->
+            <div class="border-end bg-white" id="sidebar-wrapper">
+                <div style="text-align: center;">
+                    <span style="color: #00ff00;">
+                        <strong> Доска объявлений MMORPG </strong>
+                    </span>
+                </div>
+                <div class="list-group list-group-flush">
+                    <div style="text-align: center;">
+                        <span style="color: #00ff00;">
+                            <strong>
+                                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="http://127.0.0.1:8000/startpage/#!">Все объявления</a>
+                                <span>&nbsp;</span>
+                                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="http://127.0.0.1:8000/responses/#!">Мои объявления</a>
+                                <span>&nbsp;</span>
+                                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="http://127.0.0.1:8000/accounts/profile#!">Мой профиль</a>
+                                <span>&nbsp;</span>
+                            </strong>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!-- Page content wrapper-->
+            <div id="page-content-wrapper">
+                <!-- Page content-->
+                <div class="container">
+                    <div class="row">
+       <div class="col-lg-12 text-center">
+           {% block content %}
+           {{ flatpage.content }}
+           {% endblock content %}
+       </div>
+   </div>
+</div>
+            </div>
+        </div>
+    </body>
+</html>

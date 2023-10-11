@@ -1,0 +1,33 @@
+{% extends 'flatpages/default.html' %}
+{% load static %}
+
+
+{% block title %}
+Добро пожаловать
+{% endblock title %}
+
+
+{% block content %}
+
+{% if user.is_authenticated %}
+<br><br><br>
+<a href="{% url 'advert_create' %}">Создать новое объявление</a>
+{% endif %}
+
+    <br><br>
+    {% if adverts %}
+        {% for advert in adverts %}
+            <a href="/advert/{{ advert.id }}" ><b>{{ advert.title }}</b></a><br>
+                Категория: {{ advert.get_category_display }}
+                <br/>
+            <span><b>Автор:  {{ advert.author }} |
+
+                Дата объявления: {{ advert.createDate|date:'d.M.Y' }} г.</b></span><br><br>
+        {% endfor %}
+    {% else %}
+        <br><br>
+        <h2>Объявлений нет!</h2>
+    {% endif %}
+
+
+{% endblock content %}

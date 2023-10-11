@@ -1,0 +1,16 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}Редактирование{% endblock title %}
+{% load static %}
+
+{% block content %}
+    <br>
+    <h3>Внесите изменения в свое объявления по форме ниже</h3><br>
+	<form method="post" enctype="multipart/form-data">
+		{% csrf_token %}
+        {{ form.media }}
+        {{ form.as_p }}
+		<input class="btn btn-secondary" type="submit" value="Сохранить">
+	</form><br>
+   <a href="{% url 'start_page' %}">Вернуться на стартовую страницу</a>
+{% endblock content %}

@@ -1,0 +1,18 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+Создание объявления
+{% endblock title %}
+{% load static %}
+
+{% block content %}
+    <br>
+    <h3>Заполните форму для создания объявления:</h3><br>
+	<form method="post" enctype="multipart/form-data">
+		{% csrf_token %}
+        {{ form.media }}
+        {{ form.as_p }}
+		<input type="submit" value="Сохранить">
+	</form><br>
+    <a href="{% url 'start_page' %}">Вернуться на стартовую страницу</a>
+{% endblock content %}
